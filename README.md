@@ -1,6 +1,3 @@
-# azure-ecommerce-data-pipeline
-Building a scalable Azure data pipeline for e-commerce analytics (ingestion, transformation, analytics)
-
 # 🚀 End-to-End Azure Data Pipeline (E-commerce Analytics)
 
 ## 📌 Overview
@@ -19,117 +16,74 @@ A company wants to:
 ---
 
 ## 🏗️ Architecture
-Source (API / CSV)
+Source (Kaggle Dataset)
 ↓
-Azure Data Factory (Ingestion)
+Landing Zone (Raw Upload)
 ↓
-Azure Data Lake (Bronze → Silver → Gold)
+Azure Data Factory (Ingestion Pipeline)
 ↓
-Azure Databricks (Transformation - PySpark)
+Bronze Layer (Raw Data Storage)
 ↓
-Final Dataset (Analytics)
-
+[Next: Transformation with Databricks]
 
 ---
 
-## ⚙️ Technologies
+## ⚙️ Technologies Used
 
 - Azure Data Factory  
 - Azure Data Lake Storage  
-- Azure Databricks  
-- PySpark  
-- SQL  
+- Azure Databricks (upcoming)  
+- SQL / PySpark  
 
 ---
 
 ## 📂 Data Architecture
 
+### 🟣 Landing Layer
+- Raw data uploaded manually  
+- Source: Kaggle (Online Retail Dataset)
+
 ### 🟤 Bronze Layer
-- Raw data ingestion  
-- No transformation  
-
-### ⚪ Silver Layer
-- Data cleaning  
-- Schema enforcement  
-- Handling missing values  
-
-### 🟡 Gold Layer
-- Aggregated data  
-- Business-ready datasets  
+- Data ingested using Data Factory  
+- Stored without transformation  
 
 ---
 
 ## 🔄 Pipeline Workflow
 
 ### 1. Data Ingestion
-- Automated pipeline using Data Factory  
-- Data loaded into Data Lake (Bronze)
-
-### 2. Data Processing
-- PySpark transformations in Databricks  
-- Cleaning and enrichment  
-
-### 3. Data Transformation
-- Aggregations (revenue, top products, etc.)  
-
-### 4. Data Output
-- Final dataset for analytics  
+- Dataset uploaded to **Landing zone**
+- Azure Data Factory pipeline copies data to **Bronze layer**
 
 ---
 
-## 📊 Key Insights
+## 📊 Pipeline Visualization
 
-- Monthly revenue trends  
-- Top 10 products  
-- Sales by category  
+### Azure Data Factory Pipeline
+![Pipeline](./architecture/pipeline.png)
 
----
-
-## 🧪 Challenges & Solutions
-
-| Challenge | Solution |
-|----------|---------|
-| Data inconsistency | Cleaning with PySpark |
-| Large dataset | Distributed processing |
-| Pipeline orchestration | Data Factory |
-
----
-
-## 📈 Improvements
-
-- Add monitoring (logs, alerts)  
-- Automate scheduling  
-- Optimize cost  
-
----
-
-## 📸 Screenshots
-
-(Add here)
-- Data Factory pipeline  
-- Data Lake structure  
-- Databricks notebook  
+### Bronze Layer Output
+![Bronze](./architecture/bronze.png)
 
 ---
 
 ## 🧠 What I Learned
 
-- Building scalable data pipelines  
-- Working with distributed data (Spark)  
-- Azure data services integration  
+- Designing data lake architecture (Landing → Bronze)
+- Building ingestion pipelines with Azure Data Factory
+- Structuring data for scalable processing
 
 ---
 
-## 📎 How to Run
+## 📈 Next Steps
 
-1. Create Azure resources  
-2. Upload dataset  
-3. Run Data Factory pipeline  
-4. Execute Databricks notebook  
+- Data cleaning with Azure Databricks (Silver layer)
+- Data transformation and aggregation (Gold layer)
+- Business insights generation
 
 ---
 
 ## 👨‍💻 Author
 
-Your Name  
+Aboudoul Karim OUATTARA  
 Azure Data Engineer  
