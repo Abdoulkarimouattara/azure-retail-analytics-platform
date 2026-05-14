@@ -42,7 +42,7 @@ Silver Layer (Cleaned & Enriched Data)
 ---
 
 ## 📁 Repository Structure
-
+```
 project/
 │
 ├── data/
@@ -53,6 +53,7 @@ project/
 ├── notebooks/
 ├── architecture/
 ├── README.md
+```
 
 ### ⚠️ Note:
 The `data/` folder contains **sample extracts only** for demonstration purposes.  
