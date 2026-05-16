@@ -30,7 +30,7 @@ Azure Databricks (Data Cleaning & Transformation)
 ↓
 Silver Layer (Cleaned & Enriched Data)
 ↓
-Gold Layer (Analytics Ready Data)  
+[Next: Gold Layer - Analytics]
 
 ---
 
@@ -63,8 +63,6 @@ project/
 │ └── 03_silver_to_gold_analytics
 │
 ├── README.md
-
-
 ```
 
 ### ⚠️ Note:
