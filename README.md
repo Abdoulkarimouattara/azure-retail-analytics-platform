@@ -31,7 +31,7 @@ Azure Databricks (Data Cleaning & Transformation)
 Silver Layer (Cleaned & Enriched Data)
 ↓
 [Next: Gold Layer - Analytics]
-
+```
 ---
 
 ## ⚙️ Technologies Used
@@ -125,7 +125,7 @@ Curated datasets organized by business use case:
 ![Pipeline](./architecture/adf_pipeline.png)
 
 ### Bronze Layer Output
-![Bronze](./architecture/bronze_layer.png)
+![Bronze layer](./architecture/bronze_layer.png)
 
 
 ### 2. Data Transformation (Databricks)
@@ -134,7 +134,7 @@ Curated datasets organized by business use case:
 - Output written to **Silver layer in Parquet format**
 
 ### 📸 Silver Layer Output
-![Silver](./architecture/silver_layer.png)
+![Silver layer](./architecture/silver_layer.png)
 
 
 ### 3. Data Analytics (Gold)
@@ -144,7 +144,7 @@ Curated datasets organized by business use case:
 - Perform RFM segmentation  
 
 ### 📸 Silver Layer Output
-![Silver](./architecture/gold_layer.png)
+![Gold layer](./architecture/gold_layer.png)
 
 ---
 
