@@ -54,9 +54,9 @@ project/
 │ └── gold_layer.png
 │
 ├── data/
-│ ├── bronze/ # sample raw data
-│ ├── silver/ # cleaned sample data
-│ └── gold/ # analytics sample data
+│ ├── bronze/ 
+│ ├── silver/ 
+│ └── gold/ 
 │
 ├── notebooks/
 │ ├── 02_bronze_to_silver_data_cleaning
@@ -122,10 +122,10 @@ Curated datasets organized by business use case:
 - Azure Data Factory pipeline copies data to **Bronze layer**
 
 ### Azure Data Factory Pipeline
-![Pipeline](./architecture/adf_pipeline.png)
+![Pipeline](architecture/adf_pipeline.png)
 
 ### Bronze Layer Output
-![Bronze](./architecture/bronze_layer.png)
+![Bronze](architecture/bronze_layer.png)
 
 
 ### 2. Data Transformation (Databricks)
@@ -134,7 +134,7 @@ Curated datasets organized by business use case:
 - Output written to **Silver layer in Parquet format**
 
 ### 📸 Silver Layer Output
-![Silver](./architecture/silver_layer.png)
+![Silver](architecture/silver_layer.png)
 
 
 ### 3. Data Analytics (Gold)
@@ -144,7 +144,7 @@ Curated datasets organized by business use case:
 - Perform RFM segmentation  
 
 ### 📸 Silver Layer Output
-![Silver](./architecture/gold_layer.png)
+![Silver](architecture/gold_layer.png)
 
 ---
 
