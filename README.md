@@ -1,18 +1,32 @@
 # 🚀 End-to-End Azure Data Pipeline (E-commerce Analytics)
 
 ## 📌 Overview
-This project demonstrates the design and implementation of a complete data pipeline on Azure.
+This project showcases the design and implementation of a **scalable end-to-end data pipeline on Microsoft Azure**.
 
-The pipeline ingests raw data, processes it through multiple layers (Bronze, Silver, Gold), and produces business-ready datasets for analysis.
+It covers the full lifecycle of data:
+- Ingestion  
+- Storage  
+- Transformation  
+- Analytics  
+
+The pipeline follows a **Medallion Architecture (Bronze → Silver → Gold)** to deliver clean, reliable, and business-ready datasets.
+
+---
+
+## 📊 Dashboard Preview
+
+This dashboard provides a high-level overview of sales performance, including revenue trends, KPIs, and customer insights.
+
+[![Dashboard](./architecture/dashboard.png)](./architecture/dashboard.png)
 
 ---
 
 ## 🎯 Business Use Case
-A company wants to:
-- Monitor sales performance  
-- Identify top-selling products
-- Analyze revenue trends
-- Understand customer behavior
+The goal is to enable a company to:
+- 📊 Monitor sales performance  
+- 📦 Identify top-selling products  
+- 📈 Analyze revenue trends over time  
+- 👥 Understand customer behavior and segmentation  
 
 ---
 
@@ -26,22 +40,22 @@ Azure Data Factory (Ingestion Pipeline)
 ↓
 Bronze Layer (Raw Data Storage)
 ↓
-Azure Databricks (Data Cleaning & Transformation)
+Azure Databricks (Data Processing)
 ↓
-Silver Layer (Cleaned & Enriched Data)
+Silver Layer (Cleaned Data)
 ↓
-Gold Layer (Analytics Ready Data)  
+Gold Layer (Business Aggregations)  
 ↓  
-Data Visualization / BI Layer (Power BI, Tableau)
+BI Layer (Power BI)
 ```
 ---
 
 ## ⚙️ Technologies Used
 
-- Azure Data Factory  
-- Azure Data Lake Storage (ADLS Gen2)   
-- Azure Databricks  
-- SQL / PySpark  
+-  **Azure Data Factory** – Data ingestion & orchestration  
+- **Azure Data Lake Storage Gen2 (ADLS)** – Scalable storage  
+- **Azure Databricks** – Data processing (PySpark)  
+- **SQL / PySpark** – Data transformation & analytics  
 
 ---
 
@@ -68,39 +82,41 @@ project/
 ```
 
 ### ⚠️ Note:
-The `data/` folder contains **sample extracts only** for demonstration purposes.  
-Actual data is stored and processed in **Azure Data Lake (Bronze/Silver layers)**.
+The `data/` folder contains **sample extracts only**.
+All full datasets are processed in **Azure Data Lake (Bronze/Silver layers)**.
+
 ---
 
 
 ## 📂 Data Architecture
 
 ### 🟣 Landing Layer
-- Raw data uploaded manually  
-- Source: Kaggle (Online Retail Dataset)
+- Raw dataset ingestion   
+- Source: Kaggle (Online Retail Dataset)  
 
 ### 🟤 Bronze Layer
-- Data ingested using Data Factory  
-- Stored without transformation 
+- Raw, unprocessed data  
+- Stored as-is for traceability  
 
 ### ⚪ Silver Layer
-- Data cleaned and transformed using Databricks  
-- Missing values handled  
-- Data types corrected  
-- New features created:
-  - `line_total` (revenue per line)
-  - `is_return` (returns indicator)
-  - `year`, `month` (time analysis)
+- Cleaned and enriched data  
+- Transformations include:
+  - Missing values handling  
+  - Data type corrections  
+  - Feature engineering:
+    - `line_total` (revenue per transaction line)  
+    - `is_return` (returns flag)  
+    - `year`, `month` (time analysis)  
 
 ## 🥇 Gold Layer (Business Analytics)
 
-Curated datasets organized by business use case:
+Optimized datasets for decision-making:
 
 ### 📊 KPIs
 - Total Revenue  
 - Total Orders  
 - Total Customers  
-- Average Order Value  
+- Average Order Value (AOV)  
 
 ### 📈 Trends
 - Monthly revenue  
@@ -112,16 +128,16 @@ Curated datasets organized by business use case:
 - Top products by quantity  
 
 ### 👥 Customers
-- Top customers by total spending  
-- RFM segmentation (Recency, Frequency, Monetary) 
+- Top customers by spending  
+- RFM segmentation (Recency, Frequency, Monetary)  
 
 ---
 
 ## 🔄 Pipeline Workflow
 
 ### 1. Data Ingestion
-- Dataset uploaded to **Landing zone**
-- Azure Data Factory pipeline copies data to **Bronze layer**
+- Data uploaded to **Landing zone**
+- Azure Data Factory pipelines move data to **Bronze layer**
 
 ### Azure Data Factory Pipeline
 ![Pipeline](./architecture/adf_pipeline.png)
@@ -131,19 +147,19 @@ Curated datasets organized by business use case:
 
 
 ### 2. Data Transformation (Databricks)
-- Data cleaning (null handling, type casting)
-- Feature engineering (revenue, returns, time features)
-- Output written to **Silver layer in Parquet format**
+- Data cleaning and validation  
+- Feature engineering  
+- Output stored in **Silver Layer (Parquet format)**  
 
 ### 📸 Silver Layer Output
 ![Silver layer](./architecture/silver_layer.png)
 
 
 ### 3. Data Analytics (Gold)
-- Compute KPIs  
-- Generate trends  
-- Identify top products & customers  
-- Perform RFM segmentation  
+- KPI computation  
+- Trend analysis  
+- Product & customer insights  
+- RFM segmentation  
 
 ### 📸 Silver Layer Output
 ![Gold layer](./architecture/gold_layer.png)
@@ -152,38 +168,37 @@ Curated datasets organized by business use case:
 
 ## 📊 Key Insights
 
-- Total revenue exceeds **8.3M**, showing strong business performance  
-- Clear seasonality with peak sales in **Q4**  
-- Revenue driven by both:
+- 💰 Total revenue exceeds **8.3M**, indicating strong performance  
+- 📈 Clear **seasonality trend** with peak in **Q4**  
+- 🛍️ Revenue driven by:
   - High-value products  
-  - High-volume products  
+  - High-volume transactions  
 
-- Customer base includes:
+- 👥 Customer segmentation reveals:
+  - Loyal high-value customers  
   - Low-frequency buyers  
-  - High-value loyal customers  
 
-- RFM analysis highlights:
-  - Customer churn opportunities  
-  - High-value segments for retention 
+- 🎯 RFM analysis helps identify:
+  - Retention opportunities  
+  - At-risk customers  
 
 ---
 
 ## 🧠 What I Learned
 
-- Designing scalable data lake architecture (Bronze → Silver → Gold)  
-- Data transformation using PySpark  
-- Building business-oriented datasets  
-- Performing advanced analytics (KPIs, trends, segmentation)  
+- Designing **scalable data lake architectures**  
+- Building **robust ETL pipelines on Azure**  
+- Transforming raw data into **business-ready insights**  
+- Applying **analytical techniques (KPIs, trends, segmentation)**  
 
 ---
 
-## 📈 Next Steps
+## 🚀 Project Value
 
-- Build dashboards (Power BI / Tableau)  
-- Automate pipeline scheduling  
-- Improve customer segmentation (clustering, ML) 
-
----
+This project demonstrates:
+- End-to-end data engineering workflow  
+- Cloud-based data architecture (Azure)  
+- Real-world business analytics use cases  
 
 ## 👨‍💻 Author
 
