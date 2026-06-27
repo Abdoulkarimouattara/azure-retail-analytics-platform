@@ -1,206 +1,104 @@
-# 🚀 End-to-End Azure Data Pipeline (E-commerce Analytics)
+# 04 — Business Requirements
 
-## 📌 Overview
-This project showcases the design and implementation of a **scalable end-to-end data pipeline on Microsoft Azure**.
-
-It covers the full lifecycle of data:
-- Ingestion  
-- Storage  
-- Transformation  
-- Analytics  
-
-The pipeline follows a **Medallion Architecture (Bronze → Silver → Gold)** to deliver clean, reliable, and business-ready datasets.
-
----
-
-## 📊 Dashboard Preview
-
-This dashboard provides a high-level overview of sales performance, including revenue trends, KPIs, and customer insights.
-
-[![Dashboard](./architecture/dashboard.png)](./architecture/dashboard.png)
+| Document Information |                                 |
+| -------------------- | ------------------------------- |
+| **Project**          | Azure Retail Analytics Platform |
+| **Case Study**       | Nova Retail Group               |
+| **Document**         | Business Requirements           |
+| **Status**           | Final                           |
+| **Version**          | 1.0                             |
+| **Author**           | Aboudoul Karim OUATTARA         |
+| **Last Updated**     | June 2026                       |
 
 ---
 
-## 🎯 Business Use Case
-The goal is to enable a company to:
-- 📊 Monitor sales performance  
-- 📦 Identify top-selling products  
-- 📈 Analyze revenue trends over time  
-- 👥 Understand customer behavior and segmentation  
+# Executive Overview
+
+Before designing the technical architecture, it is essential to clearly define the business requirements that the platform must satisfy.
+
+These requirements serve as the foundation for all architectural and engineering decisions presented throughout this case study.
+
+They are divided into two categories:
+
+* **Functional Requirements** — What the platform must do.
+* **Non-Functional Requirements** — How the platform should perform.
 
 ---
 
-## 🏗️ Architecture
-```
-Source (Kaggle Dataset)
-↓
-Landing Zone (Raw Upload)
-↓
-Azure Data Factory (Ingestion Pipeline)
-↓
-Bronze Layer (Raw Data Storage)
-↓
-Azure Databricks (Data Processing)
-↓
-Silver Layer (Cleaned Data)
-↓
-Gold Layer (Business Aggregations)  
-↓  
-BI Layer (Power BI)
-```
----
+# Functional Requirements
 
-## ⚙️ Technologies Used
+The platform must provide the following business capabilities.
 
--  **Azure Data Factory** – Data ingestion & orchestration  
-- **Azure Data Lake Storage Gen2 (ADLS)** – Scalable storage  
-- **Azure Databricks** – Data processing (PySpark)  
-- **SQL / PySpark** – Data transformation & analytics  
+| ID    | Requirement                                              | Business Value                                  |
+| ----- | -------------------------------------------------------- | ----------------------------------------------- |
+| FR-01 | Ingest raw sales data into a centralized cloud platform. | Centralize operational data.                    |
+| FR-02 | Preserve original datasets without modification.         | Ensure traceability and historical reference.   |
+| FR-03 | Clean and standardize transactional data.                | Improve data quality and consistency.           |
+| FR-04 | Enrich datasets with analytical business attributes.     | Support advanced business analysis.             |
+| FR-05 | Generate curated Gold datasets optimized for reporting.  | Deliver trusted business-ready data products.   |
+| FR-06 | Produce standardized business KPIs.                      | Ensure consistent reporting across departments. |
+| FR-07 | Enable interactive Power BI dashboards.                  | Improve business decision-making.               |
+| FR-08 | Support historical trend analysis.                       | Analyze business performance over time.         |
+| FR-09 | Identify top-performing customers and products.          | Support strategic business initiatives.         |
+| FR-10 | Build reusable analytical datasets for future use cases. | Improve scalability and reusability.            |
 
 ---
 
-## 📁 Repository Structure
-```
-project/
-│
-├── architecture/
-│ ├── adf_pipeline.png
-│ ├── bronze_layer.png
-| ├── silver_layer.png
-│ └── gold_layer.png
-│
-├── data/
-│ ├── bronze/ 
-│ ├── silver/ 
-│ └── gold/ 
-│
-├── notebooks/
-│ ├── 02_bronze_to_silver_data_cleaning
-│ └── 03_silver_to_gold_analytics
-│
-├── README.md
-```
+# Non-Functional Requirements
 
-### ⚠️ Note:
-The `data/` folder contains **sample extracts only**.
-All full datasets are processed in **Azure Data Lake (Bronze/Silver layers)**.
+In addition to business functionality, the platform must satisfy several engineering objectives.
+
+| ID     | Requirement     | Objective                                                       |
+| ------ | --------------- | --------------------------------------------------------------- |
+| NFR-01 | Scalability     | Support future growth in data volume.                           |
+| NFR-02 | Maintainability | Simplify future enhancements and maintenance.                   |
+| NFR-03 | Reliability     | Ensure consistent and repeatable processing.                    |
+| NFR-04 | Data Quality    | Produce accurate and trusted datasets.                          |
+| NFR-05 | Traceability    | Preserve raw data and processing lineage.                       |
+| NFR-06 | Performance     | Deliver datasets optimized for analytics.                       |
+| NFR-07 | Modularity      | Separate ingestion, processing, and reporting responsibilities. |
+| NFR-08 | Extensibility   | Enable integration of future data sources.                      |
 
 ---
 
+# Success Criteria
 
-## 📂 Data Architecture
+The project will be considered successful if it achieves the following outcomes:
 
-### 🟣 Landing Layer
-- Raw dataset ingestion   
-- Source: Kaggle (Online Retail Dataset)  
-
-### 🟤 Bronze Layer
-- Raw, unprocessed data  
-- Stored as-is for traceability  
-
-### ⚪ Silver Layer
-- Cleaned and enriched data  
-- Transformations include:
-  - Missing values handling  
-  - Data type corrections  
-  - Feature engineering:
-    - `line_total` (revenue per transaction line)  
-    - `is_return` (returns flag)  
-    - `year`, `month` (time analysis)  
-
-## 🥇 Gold Layer (Business Analytics)
-
-Optimized datasets for decision-making:
-
-### 📊 KPIs
-- Total Revenue  
-- Total Orders  
-- Total Customers  
-- Average Order Value (AOV)  
-
-### 📈 Trends
-- Monthly revenue  
-- Monthly orders  
-- Monthly customers  
-
-### 📦 Products
-- Top products by revenue  
-- Top products by quantity  
-
-### 👥 Customers
-- Top customers by spending  
-- RFM segmentation (Recency, Frequency, Monetary)  
+* Automated ingestion of raw sales data.
+* Reliable and repeatable ETL processing.
+* High-quality curated datasets.
+* Standardized business metrics.
+* Interactive Power BI dashboards based on trusted data.
+* A scalable architecture capable of supporting future analytical requirements.
 
 ---
 
-## 🔄 Pipeline Workflow
+# Requirement Traceability
 
-### 1. Data Ingestion
-- Data uploaded to **Landing zone**
-- Azure Data Factory pipelines move data to **Bronze layer**
+The table below illustrates how business requirements are addressed by the solution.
 
-### Azure Data Factory Pipeline
-![Pipeline](./architecture/adf_pipeline.png)
+| Requirement Category     | Implemented Through          |
+| ------------------------ | ---------------------------- |
+| Data Ingestion           | Azure Data Factory           |
+| Centralized Storage      | Azure Data Lake Storage Gen2 |
+| Data Cleansing           | Azure Databricks (PySpark)   |
+| Business Transformations | PySpark Notebooks            |
+| Curated Data Products    | Gold Layer                   |
+| Business Reporting       | Power BI                     |
 
-### Bronze Layer Output
-![Bronze layer](./architecture/bronze_layer.png)
-
-
-### 2. Data Transformation (Databricks)
-- Data cleaning and validation  
-- Feature engineering  
-- Output stored in **Silver Layer (Parquet format)**  
-
-### 📸 Silver Layer Output
-![Silver layer](./architecture/silver_layer.png)
-
-
-### 3. Data Analytics (Gold)
-- KPI computation  
-- Trend analysis  
-- Product & customer insights  
-- RFM segmentation  
-
-### 📸 Silver Layer Output
-![Gold layer](./architecture/gold_layer.png)
+> **Note:** This section establishes the link between business expectations and the technical implementation. The detailed architectural rationale is presented in the next document.
 
 ---
 
-## 📊 Key Insights
+# Key Takeaways
 
-- 💰 Total revenue exceeds **8.3M**, indicating strong performance  
-- 📈 Clear **seasonality trend** with peak in **Q4**  
-- 🛍️ Revenue driven by:
-  - High-value products  
-  - High-volume transactions  
+The platform has been designed to satisfy both business and engineering requirements.
 
-- 👥 Customer segmentation reveals:
-  - Loyal high-value customers  
-  - Low-frequency buyers  
+Business requirements define **what** the organization expects from the platform, while non-functional requirements define **how** the solution should behave in terms of scalability, reliability, maintainability, and performance.
 
-- 🎯 RFM analysis helps identify:
-  - Retention opportunities  
-  - At-risk customers  
+These requirements provide the foundation for the architectural decisions described in the following document.
 
 ---
 
-## 🧠 What I Learned
-
-- Designing **scalable data lake architectures**  
-- Building **robust ETL pipelines on Azure**  
-- Transforming raw data into **business-ready insights**  
-- Applying **analytical techniques (KPIs, trends, segmentation)**  
-
----
-
-## 🚀 Project Value
-
-This project demonstrates:
-- End-to-end data engineering workflow  
-- Cloud-based data architecture (Azure)  
-- Real-world business analytics use cases  
-
-## 👨‍💻 Author
-
-Aboudoul Karim
-Azure Data Engineer  
+**Previous Document ←** `03-solution-strategy.md` | **Next Document →** `05-architecture-decisions.md`

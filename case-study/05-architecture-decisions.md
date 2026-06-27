@@ -1,206 +1,229 @@
-# 🚀 End-to-End Azure Data Pipeline (E-commerce Analytics)
+# 05 — Architecture Decisions
 
-## 📌 Overview
-This project showcases the design and implementation of a **scalable end-to-end data pipeline on Microsoft Azure**.
-
-It covers the full lifecycle of data:
-- Ingestion  
-- Storage  
-- Transformation  
-- Analytics  
-
-The pipeline follows a **Medallion Architecture (Bronze → Silver → Gold)** to deliver clean, reliable, and business-ready datasets.
-
----
-
-## 📊 Dashboard Preview
-
-This dashboard provides a high-level overview of sales performance, including revenue trends, KPIs, and customer insights.
-
-[![Dashboard](./architecture/dashboard.png)](./architecture/dashboard.png)
+| Document Information |                                 |
+| -------------------- | ------------------------------- |
+| **Project**          | Azure Retail Analytics Platform |
+| **Case Study**       | Nova Retail Group               |
+| **Document**         | Architecture Decisions          |
+| **Status**           | Final                           |
+| **Version**          | 1.0                             |
+| **Author**           | Aboudoul Karim OUATTARA         |
+| **Last Updated**     | June 2026                       |
 
 ---
 
-## 🎯 Business Use Case
-The goal is to enable a company to:
-- 📊 Monitor sales performance  
-- 📦 Identify top-selling products  
-- 📈 Analyze revenue trends over time  
-- 👥 Understand customer behavior and segmentation  
+# Executive Overview
+
+Designing a modern data platform is not simply a matter of selecting cloud services.
+
+Every architectural component should solve a specific business or engineering problem while contributing to a scalable, maintainable, and reliable platform.
+
+This document explains the rationale behind the key architectural decisions made during the design of the Azure Retail Analytics Platform.
 
 ---
 
-## 🏗️ Architecture
-```
-Source (Kaggle Dataset)
-↓
-Landing Zone (Raw Upload)
-↓
-Azure Data Factory (Ingestion Pipeline)
-↓
-Bronze Layer (Raw Data Storage)
-↓
-Azure Databricks (Data Processing)
-↓
-Silver Layer (Cleaned Data)
-↓
-Gold Layer (Business Aggregations)  
-↓  
-BI Layer (Power BI)
-```
----
+# Architecture Overview
 
-## ⚙️ Technologies Used
+The solution follows a modern cloud-native architecture based on three fundamental principles:
 
--  **Azure Data Factory** – Data ingestion & orchestration  
-- **Azure Data Lake Storage Gen2 (ADLS)** – Scalable storage  
-- **Azure Databricks** – Data processing (PySpark)  
-- **SQL / PySpark** – Data transformation & analytics  
+* Separation of storage and compute.
+* Progressive improvement of data quality.
+* Delivery of business-ready analytical datasets.
+
+These principles guided every technology selection throughout the project.
 
 ---
 
-## 📁 Repository Structure
-```
-project/
-│
-├── architecture/
-│ ├── adf_pipeline.png
-│ ├── bronze_layer.png
-| ├── silver_layer.png
-│ └── gold_layer.png
-│
-├── data/
-│ ├── bronze/ 
-│ ├── silver/ 
-│ └── gold/ 
-│
-├── notebooks/
-│ ├── 02_bronze_to_silver_data_cleaning
-│ └── 03_silver_to_gold_analytics
-│
-├── README.md
-```
+# Decision 1 — Azure Data Lake Storage Gen2
 
-### ⚠️ Note:
-The `data/` folder contains **sample extracts only**.
-All full datasets are processed in **Azure Data Lake (Bronze/Silver layers)**.
+## Business Need
+
+The organization requires a centralized repository capable of storing raw, cleansed, and curated datasets while supporting future growth.
+
+## Decision
+
+Azure Data Lake Storage Gen2 is used as the central storage layer for the entire platform.
+
+## Why This Choice?
+
+* Establishes a single source of truth.
+* Supports virtually unlimited scalability.
+* Separates storage from compute resources.
+* Integrates natively with Azure analytics services.
+* Preserves historical datasets for auditing and reprocessing.
+
+## Trade-off
+
+While introducing an additional storage layer increases architectural complexity, it provides significantly greater flexibility and long-term scalability.
 
 ---
 
+# Decision 2 — Medallion Architecture
 
-## 📂 Data Architecture
+## Business Need
 
-### 🟣 Landing Layer
-- Raw dataset ingestion   
-- Source: Kaggle (Online Retail Dataset)  
+Raw operational data should not be consumed directly by business users.
 
-### 🟤 Bronze Layer
-- Raw, unprocessed data  
-- Stored as-is for traceability  
+## Decision
 
-### ⚪ Silver Layer
-- Cleaned and enriched data  
-- Transformations include:
-  - Missing values handling  
-  - Data type corrections  
-  - Feature engineering:
-    - `line_total` (revenue per transaction line)  
-    - `is_return` (returns flag)  
-    - `year`, `month` (time analysis)  
+The platform adopts a Medallion Architecture composed of Bronze, Silver, and Gold layers.
 
-## 🥇 Gold Layer (Business Analytics)
+## Why This Choice?
 
-Optimized datasets for decision-making:
+| Layer  | Responsibility                              |
+| ------ | ------------------------------------------- |
+| Bronze | Preserve raw source data.                   |
+| Silver | Cleanse, validate, and enrich data.         |
+| Gold   | Deliver business-ready analytical datasets. |
 
-### 📊 KPIs
-- Total Revenue  
-- Total Orders  
-- Total Customers  
-- Average Order Value (AOV)  
+This layered approach:
 
-### 📈 Trends
-- Monthly revenue  
-- Monthly orders  
-- Monthly customers  
+* Improves traceability.
+* Simplifies debugging.
+* Separates responsibilities.
+* Supports reusable data products.
 
-### 📦 Products
-- Top products by revenue  
-- Top products by quantity  
+## Trade-off
 
-### 👥 Customers
-- Top customers by spending  
-- RFM segmentation (Recency, Frequency, Monetary)  
+Additional processing stages increase implementation effort but significantly improve maintainability and data quality.
 
 ---
 
-## 🔄 Pipeline Workflow
+# Decision 3 — Azure Data Factory
 
-### 1. Data Ingestion
-- Data uploaded to **Landing zone**
-- Azure Data Factory pipelines move data to **Bronze layer**
+## Business Need
 
-### Azure Data Factory Pipeline
-![Pipeline](./architecture/adf_pipeline.png)
+Data ingestion must be reliable, repeatable, and easy to manage.
 
-### Bronze Layer Output
-![Bronze layer](./architecture/bronze_layer.png)
+## Decision
 
+Azure Data Factory orchestrates the ingestion workflow from source files to the Bronze layer.
 
-### 2. Data Transformation (Databricks)
-- Data cleaning and validation  
-- Feature engineering  
-- Output stored in **Silver Layer (Parquet format)**  
+## Why This Choice?
 
-### 📸 Silver Layer Output
-![Silver layer](./architecture/silver_layer.png)
+* Managed orchestration service.
+* Native Azure integration.
+* Scheduling capabilities.
+* Pipeline monitoring.
+* Reduced operational overhead.
 
+## Trade-off
 
-### 3. Data Analytics (Gold)
-- KPI computation  
-- Trend analysis  
-- Product & customer insights  
-- RFM segmentation  
-
-### 📸 Silver Layer Output
-![Gold layer](./architecture/gold_layer.png)
+Azure Data Factory focuses on orchestration rather than complex transformations, requiring a dedicated processing engine for business logic.
 
 ---
 
-## 📊 Key Insights
+# Decision 4 — Azure Databricks & PySpark
 
-- 💰 Total revenue exceeds **8.3M**, indicating strong performance  
-- 📈 Clear **seasonality trend** with peak in **Q4**  
-- 🛍️ Revenue driven by:
-  - High-value products  
-  - High-volume transactions  
+## Business Need
 
-- 👥 Customer segmentation reveals:
-  - Loyal high-value customers  
-  - Low-frequency buyers  
+Large datasets require scalable processing capable of handling complex transformations efficiently.
 
-- 🎯 RFM analysis helps identify:
-  - Retention opportunities  
-  - At-risk customers  
+## Decision
 
----
+Business transformations are implemented using Azure Databricks with PySpark.
 
-## 🧠 What I Learned
+## Why This Choice?
 
-- Designing **scalable data lake architectures**  
-- Building **robust ETL pipelines on Azure**  
-- Transforming raw data into **business-ready insights**  
-- Applying **analytical techniques (KPIs, trends, segmentation)**  
+* Distributed processing engine.
+* Excellent scalability.
+* Native Spark ecosystem.
+* Reusable transformation logic.
+* Strong integration with Azure Data Lake.
+
+## Trade-off
+
+Databricks introduces additional operational complexity compared to traditional SQL solutions but provides significantly greater scalability and flexibility.
 
 ---
 
-## 🚀 Project Value
+# Decision 5 — Parquet Storage Format
 
-This project demonstrates:
-- End-to-end data engineering workflow  
-- Cloud-based data architecture (Azure)  
-- Real-world business analytics use cases  
+## Business Need
 
-## 👨‍💻 Author
+Analytical datasets must support fast query performance while minimizing storage costs.
 
-Aboudoul Karim
-Azure Data Engineer  
+## Decision
+
+The Silver and Gold layers are stored using the Parquet file format.
+
+## Why This Choice?
+
+* Columnar storage.
+* High compression.
+* Faster analytical queries.
+* Better Spark performance.
+* Efficient storage utilization.
+
+## Trade-off
+
+Parquet is optimized for analytics rather than manual editing, making it less convenient for direct inspection than CSV files.
+
+---
+
+# Decision 6 — Power BI
+
+## Business Need
+
+Business users require intuitive access to trusted analytical data.
+
+## Decision
+
+Power BI serves as the presentation layer of the platform.
+
+## Why This Choice?
+
+* Interactive dashboards.
+* Executive KPI monitoring.
+* Self-service analytics.
+* Native Azure integration.
+* Rapid business insight delivery.
+
+## Trade-off
+
+Dashboard quality depends entirely on the consistency of upstream data models, making a robust Gold layer essential.
+
+---
+
+# Architecture Principles
+
+The final architecture is built upon the following engineering principles:
+
+| Principle              | Implementation                                                    |
+| ---------------------- | ----------------------------------------------------------------- |
+| Separation of Concerns | Independent ingestion, storage, processing, and reporting layers. |
+| Scalability            | Cloud-native services capable of handling future growth.          |
+| Traceability           | Immutable Bronze layer preserving raw data.                       |
+| Data Quality           | Progressive cleansing through Silver and Gold layers.             |
+| Reusability            | Shared analytical datasets for multiple reporting scenarios.      |
+| Maintainability        | Modular components with clearly defined responsibilities.         |
+
+---
+
+# Consultant's Note
+
+The selected Azure services are not presented as the only possible solution.
+
+Alternative technologies could also satisfy the business requirements.
+
+The objective of this architecture is to demonstrate a balanced design that prioritizes simplicity, scalability, maintainability, and business value while remaining aligned with modern Azure Data Engineering best practices.
+
+---
+
+# Key Takeaways
+
+Every technology used in this project was selected to address a specific business or engineering requirement.
+
+The architecture emphasizes:
+
+* Business-driven design.
+* Modular cloud-native components.
+* Progressive data refinement.
+* Scalable analytics.
+* Long-term maintainability.
+
+These architectural decisions establish the technical foundation for the implementation described in the next document.
+
+---
+
+**Previous Document ←** `04-business-requirements.md` | **Next Document →** `06-pipeline-walkthrough.md`

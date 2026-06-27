@@ -1,206 +1,211 @@
-# 🚀 End-to-End Azure Data Pipeline (E-commerce Analytics)
+# 07 — Engineering Decisions
 
-## 📌 Overview
-This project showcases the design and implementation of a **scalable end-to-end data pipeline on Microsoft Azure**.
-
-It covers the full lifecycle of data:
-- Ingestion  
-- Storage  
-- Transformation  
-- Analytics  
-
-The pipeline follows a **Medallion Architecture (Bronze → Silver → Gold)** to deliver clean, reliable, and business-ready datasets.
-
----
-
-## 📊 Dashboard Preview
-
-This dashboard provides a high-level overview of sales performance, including revenue trends, KPIs, and customer insights.
-
-[![Dashboard](./architecture/dashboard.png)](./architecture/dashboard.png)
+| Document Information |                                 |
+| -------------------- | ------------------------------- |
+| **Project**          | Azure Retail Analytics Platform |
+| **Case Study**       | Nova Retail Group               |
+| **Document**         | Engineering Decisions           |
+| **Status**           | Final                           |
+| **Version**          | 1.0                             |
+| **Author**           | Aboudoul Karim OUATTARA         |
+| **Last Updated**     | June 2026                       |
 
 ---
 
-## 🎯 Business Use Case
-The goal is to enable a company to:
-- 📊 Monitor sales performance  
-- 📦 Identify top-selling products  
-- 📈 Analyze revenue trends over time  
-- 👥 Understand customer behavior and segmentation  
+# Executive Overview
+
+Building a successful data platform requires more than selecting the right technologies.
+
+Every implementation decision has consequences on scalability, maintainability, performance, cost, and long-term evolution.
+
+This document explains the key engineering decisions made throughout the project and the reasoning behind each choice.
 
 ---
 
-## 🏗️ Architecture
-```
-Source (Kaggle Dataset)
-↓
-Landing Zone (Raw Upload)
-↓
-Azure Data Factory (Ingestion Pipeline)
-↓
-Bronze Layer (Raw Data Storage)
-↓
-Azure Databricks (Data Processing)
-↓
-Silver Layer (Cleaned Data)
-↓
-Gold Layer (Business Aggregations)  
-↓  
-BI Layer (Power BI)
-```
----
-
-## ⚙️ Technologies Used
-
--  **Azure Data Factory** – Data ingestion & orchestration  
-- **Azure Data Lake Storage Gen2 (ADLS)** – Scalable storage  
-- **Azure Databricks** – Data processing (PySpark)  
-- **SQL / PySpark** – Data transformation & analytics  
+| Decision                   | Primary Goal      | Trade-off                 |
+| -------------------------- | ----------------- | ------------------------- |
+| Preserve Raw Data          | Traceability      | Additional storage        |
+| Centralize Business Logic  | KPI Consistency   | More ETL transformations  |
+| Separate Processing Layers | Maintainability   | More pipeline stages      |
+| Store Data as Parquet      | Performance       | Less human-readable files |
+| Lightweight Power BI       | Simpler reporting | More upstream processing  |
 
 ---
 
-## 📁 Repository Structure
-```
-project/
-│
-├── architecture/
-│ ├── adf_pipeline.png
-│ ├── bronze_layer.png
-| ├── silver_layer.png
-│ └── gold_layer.png
-│
-├── data/
-│ ├── bronze/ 
-│ ├── silver/ 
-│ └── gold/ 
-│
-├── notebooks/
-│ ├── 02_bronze_to_silver_data_cleaning
-│ └── 03_silver_to_gold_analytics
-│
-├── README.md
-```
+# Decision 1 — Preserve Raw Data
 
-### ⚠️ Note:
-The `data/` folder contains **sample extracts only**.
-All full datasets are processed in **Azure Data Lake (Bronze/Silver layers)**.
+## Context
 
----
+Incoming transactional data may contain inconsistencies, duplicate records, missing values, or cancelled orders.
 
+Cleaning the data immediately after ingestion would permanently modify the original source.
 
-## 📂 Data Architecture
+## Decision
 
-### 🟣 Landing Layer
-- Raw dataset ingestion   
-- Source: Kaggle (Online Retail Dataset)  
+Store all incoming data unchanged in the Bronze layer.
 
-### 🟤 Bronze Layer
-- Raw, unprocessed data  
-- Stored as-is for traceability  
+## Benefits
 
-### ⚪ Silver Layer
-- Cleaned and enriched data  
-- Transformations include:
-  - Missing values handling  
-  - Data type corrections  
-  - Feature engineering:
-    - `line_total` (revenue per transaction line)  
-    - `is_return` (returns flag)  
-    - `year`, `month` (time analysis)  
+* Preserves historical records.
+* Enables complete data lineage.
+* Supports future reprocessing.
+* Simplifies debugging.
+* Provides a reliable audit trail.
 
-## 🥇 Gold Layer (Business Analytics)
+## Trade-off
 
-Optimized datasets for decision-making:
+Additional storage is required because both raw and processed datasets are retained.
 
-### 📊 KPIs
-- Total Revenue  
-- Total Orders  
-- Total Customers  
-- Average Order Value (AOV)  
-
-### 📈 Trends
-- Monthly revenue  
-- Monthly orders  
-- Monthly customers  
-
-### 📦 Products
-- Top products by revenue  
-- Top products by quantity  
-
-### 👥 Customers
-- Top customers by spending  
-- RFM segmentation (Recency, Frequency, Monetary)  
+However, storage costs are relatively low compared to the value of preserving historical data.
 
 ---
 
-## 🔄 Pipeline Workflow
+# Decision 2 — Centralize Business Logic
 
-### 1. Data Ingestion
-- Data uploaded to **Landing zone**
-- Azure Data Factory pipelines move data to **Bronze layer**
+## Context
 
-### Azure Data Factory Pipeline
-![Pipeline](./architecture/adf_pipeline.png)
+Business metrics such as revenue calculations are used by multiple reports.
 
-### Bronze Layer Output
-![Bronze layer](./architecture/bronze_layer.png)
+Implementing these calculations independently in Power BI would create duplicated logic and inconsistent KPIs.
 
+## Decision
 
-### 2. Data Transformation (Databricks)
-- Data cleaning and validation  
-- Feature engineering  
-- Output stored in **Silver Layer (Parquet format)**  
+Implement business rules during the data transformation process.
 
-### 📸 Silver Layer Output
-![Silver layer](./architecture/silver_layer.png)
+Examples include:
 
+* `line_total`
+* `is_return`
+* `year`
+* `month`
 
-### 3. Data Analytics (Gold)
-- KPI computation  
-- Trend analysis  
-- Product & customer insights  
-- RFM segmentation  
+## Benefits
 
-### 📸 Silver Layer Output
-![Gold layer](./architecture/gold_layer.png)
+* Single implementation of business logic.
+* Consistent KPI calculations.
+* Easier maintenance.
+* Reusable analytical datasets.
 
----
+## Trade-off
 
-## 📊 Key Insights
-
-- 💰 Total revenue exceeds **8.3M**, indicating strong performance  
-- 📈 Clear **seasonality trend** with peak in **Q4**  
-- 🛍️ Revenue driven by:
-  - High-value products  
-  - High-volume transactions  
-
-- 👥 Customer segmentation reveals:
-  - Loyal high-value customers  
-  - Low-frequency buyers  
-
-- 🎯 RFM analysis helps identify:
-  - Retention opportunities  
-  - At-risk customers  
+Transformation complexity increases slightly, but reporting becomes significantly simpler and more reliable.
 
 ---
 
-## 🧠 What I Learned
+# Decision 3 — Separate Processing Layers
 
-- Designing **scalable data lake architectures**  
-- Building **robust ETL pipelines on Azure**  
-- Transforming raw data into **business-ready insights**  
-- Applying **analytical techniques (KPIs, trends, segmentation)**  
+## Context
+
+Combining ingestion, cleansing, and reporting into a single workflow creates tightly coupled pipelines.
+
+## Decision
+
+Adopt a layered processing model using Bronze, Silver, and Gold.
+
+## Benefits
+
+* Easier debugging.
+* Better modularity.
+* Independent evolution of each layer.
+* Improved maintainability.
+* Clear data lineage.
+
+## Trade-off
+
+Additional processing stages increase pipeline complexity while significantly improving long-term maintainability.
 
 ---
 
-## 🚀 Project Value
+# Decision 4 — Store Analytical Data as Parquet
 
-This project demonstrates:
-- End-to-end data engineering workflow  
-- Cloud-based data architecture (Azure)  
-- Real-world business analytics use cases  
+## Context
 
-## 👨‍💻 Author
+The platform is optimized for analytical workloads rather than transactional processing.
 
-Aboudoul Karim
-Azure Data Engineer  
+## Decision
+
+Store Silver and Gold datasets in the Parquet format.
+
+## Benefits
+
+* Faster analytical queries.
+* Columnar storage.
+* Better compression.
+* Lower storage costs.
+* Improved Spark performance.
+
+## Trade-off
+
+Parquet files are not intended for manual editing but provide substantial performance improvements for analytics.
+
+---
+
+# Decision 5 — Keep Power BI Lightweight
+
+## Context
+
+Complex business logic inside dashboards often leads to duplicated calculations and difficult maintenance.
+
+## Decision
+
+Move transformations upstream into the data platform.
+
+Power BI consumes only curated Gold datasets.
+
+## Benefits
+
+* Faster dashboard development.
+* Consistent business metrics.
+* Better report performance.
+* Simpler semantic model.
+* Easier maintenance.
+
+## Trade-off
+
+More processing occurs within the data platform, reducing complexity in the reporting layer.
+
+---
+
+# Engineering Principles Applied
+
+Throughout the project, the following engineering principles guided every implementation decision.
+
+| Principle              | Application                                           |
+| ---------------------- | ----------------------------------------------------- |
+| Separation of Concerns | Independent storage, processing, and reporting layers |
+| Reusability            | Shared analytical datasets across multiple reports    |
+| Traceability           | Immutable Bronze layer                                |
+| Maintainability        | Modular transformations                               |
+| Scalability            | Cloud-native Azure architecture                       |
+| Performance            | Parquet storage and Spark processing                  |
+| Consistency            | Centralized business logic                            |
+| Simplicity             | Clear responsibilities for every layer                |
+
+---
+
+# Consultant's Perspective
+
+The engineering decisions presented in this document intentionally prioritize long-term maintainability over short-term implementation speed.
+
+While several alternative solutions could achieve similar results, the selected approach reflects common architectural patterns used in enterprise cloud data platforms.
+
+The objective is not only to build a working pipeline, but to build a platform that remains understandable, extensible, and reliable as business requirements evolve.
+
+---
+
+# Key Takeaways
+
+The success of a Data Engineering platform depends not only on the technologies selected, but also on the engineering principles that guide implementation.
+
+Throughout this project, every technical decision was evaluated against four questions:
+
+* Does it improve maintainability?
+* Does it improve scalability?
+* Does it improve data quality?
+* Does it improve business value?
+
+These principles provide the foundation for evaluating the production readiness of the platform in the next document.
+
+---
+
+**Previous Document ←** `06-pipeline-walkthrough.md` | **Next Document →** `08-production-readiness.md`

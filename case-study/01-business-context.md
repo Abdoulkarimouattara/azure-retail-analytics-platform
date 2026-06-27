@@ -1,206 +1,107 @@
-# 🚀 End-to-End Azure Data Pipeline (E-commerce Analytics)
+# 03 — Solution Strategy
 
-## 📌 Overview
-This project showcases the design and implementation of a **scalable end-to-end data pipeline on Microsoft Azure**.
-
-It covers the full lifecycle of data:
-- Ingestion  
-- Storage  
-- Transformation  
-- Analytics  
-
-The pipeline follows a **Medallion Architecture (Bronze → Silver → Gold)** to deliver clean, reliable, and business-ready datasets.
-
----
-
-## 📊 Dashboard Preview
-
-This dashboard provides a high-level overview of sales performance, including revenue trends, KPIs, and customer insights.
-
-[![Dashboard](./architecture/dashboard.png)](./architecture/dashboard.png)
+| Document Information | |
+|----------------------|-----------------------------|
+| **Project** | Azure Retail Analytics Platform |
+| **Case Study** | Nova Retail Group |
+| **Document** | Solution Strategy |
+| **Status** | Final |
+| **Version** | 1.0 |
+| **Author** | Aboudoul Karim OUATTARA |
+| **Last Updated** | June 2026 |
 
 ---
 
-## 🎯 Business Use Case
-The goal is to enable a company to:
-- 📊 Monitor sales performance  
-- 📦 Identify top-selling products  
-- 📈 Analyze revenue trends over time  
-- 👥 Understand customer behavior and segmentation  
+## Executive Overview
+
+This case study simulates the design and implementation of a modern cloud-native data platform for **Nova Retail Group**, a fictional international retail company.
+
+The objective is to demonstrate how a scalable Azure-based Data Engineering solution can transform raw transactional data into trusted business insights while following industry best practices in cloud architecture, data processing, and analytics.
+
+Although the underlying dataset originates from a public source, the business scenario, architectural decisions, and implementation approach are presented as if this project were delivered for a real client.
 
 ---
 
-## 🏗️ Architecture
-```
-Source (Kaggle Dataset)
-↓
-Landing Zone (Raw Upload)
-↓
-Azure Data Factory (Ingestion Pipeline)
-↓
-Bronze Layer (Raw Data Storage)
-↓
-Azure Databricks (Data Processing)
-↓
-Silver Layer (Cleaned Data)
-↓
-Gold Layer (Business Aggregations)  
-↓  
-BI Layer (Power BI)
-```
----
+# Company Overview
 
-## ⚙️ Technologies Used
+**Nova Retail Group** is a fast-growing international retailer specializing in home decoration, office supplies, gifts, and lifestyle products.
 
--  **Azure Data Factory** – Data ingestion & orchestration  
-- **Azure Data Lake Storage Gen2 (ADLS)** – Scalable storage  
-- **Azure Databricks** – Data processing (PySpark)  
-- **SQL / PySpark** – Data transformation & analytics  
+The company serves both **Business-to-Business (B2B)** and **Business-to-Consumer (B2C)** customers across multiple countries through its online sales platform.
+
+As the business expanded, transaction volumes increased significantly, generating large amounts of operational data every day. While this growth created valuable analytical opportunities, it also introduced new challenges related to data quality, reporting consistency, and scalability.
+
+The leadership team recognized that the existing reporting process could no longer support the company's long-term analytical needs and decided to modernize its data platform.
 
 ---
 
-## 📁 Repository Structure
-```
-project/
-│
-├── architecture/
-│ ├── adf_pipeline.png
-│ ├── bronze_layer.png
-| ├── silver_layer.png
-│ └── gold_layer.png
-│
-├── data/
-│ ├── bronze/ 
-│ ├── silver/ 
-│ └── gold/ 
-│
-├── notebooks/
-│ ├── 02_bronze_to_silver_data_cleaning
-│ └── 03_silver_to_gold_analytics
-│
-├── README.md
-```
+# Current Situation
 
-### ⚠️ Note:
-The `data/` folder contains **sample extracts only**.
-All full datasets are processed in **Azure Data Lake (Bronze/Silver layers)**.
+Before this project, sales data was exported as raw CSV files from operational systems and manually prepared for reporting.
+
+Business analysts spent a significant amount of time cleaning datasets, correcting inconsistencies, and calculating key performance indicators before dashboards could be produced.
+
+This manual workflow introduced several limitations:
+
+* Repetitive and time-consuming data preparation.
+* Inconsistent KPI calculations across teams.
+* Limited visibility into customer behavior.
+* Delayed business reporting.
+* Difficulties scaling analytical processes as data volumes increased.
+
+As a result, decision-makers often relied on reports that were difficult to reproduce and lacked a single, trusted source of truth.
 
 ---
 
+# Business Objectives
 
-## 📂 Data Architecture
+The primary objective of this initiative is to build a centralized, scalable, and maintainable analytics platform capable of supporting data-driven decision-making.
 
-### 🟣 Landing Layer
-- Raw dataset ingestion   
-- Source: Kaggle (Online Retail Dataset)  
+The solution is expected to:
 
-### 🟤 Bronze Layer
-- Raw, unprocessed data  
-- Stored as-is for traceability  
-
-### ⚪ Silver Layer
-- Cleaned and enriched data  
-- Transformations include:
-  - Missing values handling  
-  - Data type corrections  
-  - Feature engineering:
-    - `line_total` (revenue per transaction line)  
-    - `is_return` (returns flag)  
-    - `year`, `month` (time analysis)  
-
-## 🥇 Gold Layer (Business Analytics)
-
-Optimized datasets for decision-making:
-
-### 📊 KPIs
-- Total Revenue  
-- Total Orders  
-- Total Customers  
-- Average Order Value (AOV)  
-
-### 📈 Trends
-- Monthly revenue  
-- Monthly orders  
-- Monthly customers  
-
-### 📦 Products
-- Top products by revenue  
-- Top products by quantity  
-
-### 👥 Customers
-- Top customers by spending  
-- RFM segmentation (Recency, Frequency, Monetary)  
+* Centralize sales data in a cloud-based platform.
+* Improve data quality through standardized transformation processes.
+* Deliver trusted business-ready datasets.
+* Automate repetitive data preparation tasks.
+* Enable interactive reporting using Power BI.
+* Establish a scalable architecture capable of supporting future business growth.
 
 ---
 
-## 🔄 Pipeline Workflow
+# Expected Business Outcomes
 
-### 1. Data Ingestion
-- Data uploaded to **Landing zone**
-- Azure Data Factory pipelines move data to **Bronze layer**
+By implementing the proposed Azure Data Platform, Nova Retail Group expects to achieve the following outcomes:
 
-### Azure Data Factory Pipeline
-![Pipeline](./architecture/adf_pipeline.png)
-
-### Bronze Layer Output
-![Bronze layer](./architecture/bronze_layer.png)
-
-
-### 2. Data Transformation (Databricks)
-- Data cleaning and validation  
-- Feature engineering  
-- Output stored in **Silver Layer (Parquet format)**  
-
-### 📸 Silver Layer Output
-![Silver layer](./architecture/silver_layer.png)
-
-
-### 3. Data Analytics (Gold)
-- KPI computation  
-- Trend analysis  
-- Product & customer insights  
-- RFM segmentation  
-
-### 📸 Silver Layer Output
-![Gold layer](./architecture/gold_layer.png)
+| Business Goal              | Expected Benefit                                 |
+| -------------------------- | ------------------------------------------------ |
+| Centralize data            | Establish a single source of truth for analytics |
+| Improve data quality       | Increase confidence in business KPIs             |
+| Automate data preparation  | Reduce manual reporting effort                   |
+| Standardize business logic | Ensure consistent metrics across departments     |
+| Accelerate reporting       | Provide faster access to business insights       |
+| Support growth             | Build a scalable cloud-native analytics platform |
 
 ---
 
-## 📊 Key Insights
+# Success Criteria
 
-- 💰 Total revenue exceeds **8.3M**, indicating strong performance  
-- 📈 Clear **seasonality trend** with peak in **Q4**  
-- 🛍️ Revenue driven by:
-  - High-value products  
-  - High-volume transactions  
+The success of the project will be evaluated against the following criteria:
 
-- 👥 Customer segmentation reveals:
-  - Loyal high-value customers  
-  - Low-frequency buyers  
-
-- 🎯 RFM analysis helps identify:
-  - Retention opportunities  
-  - At-risk customers  
+* Reliable and automated data ingestion.
+* High-quality curated datasets.
+* Consistent KPI calculations across reports.
+* Interactive Power BI dashboards based on trusted data.
+* Modular architecture that is easy to maintain and extend.
+* Clear separation between storage, processing, and analytics.
 
 ---
 
-## 🧠 What I Learned
+## Key Takeaways
 
-- Designing **scalable data lake architectures**  
-- Building **robust ETL pipelines on Azure**  
-- Transforming raw data into **business-ready insights**  
-- Applying **analytical techniques (KPIs, trends, segmentation)**  
+* The project addresses a real-world retail analytics scenario.
+* The objective extends beyond building ETL pipelines; it focuses on delivering trusted business data products.
+* Business requirements drive the architectural decisions presented throughout this case study.
+* The platform is designed using modern Azure Data Engineering best practices with scalability, maintainability, and analytics readiness in mind.
 
 ---
 
-## 🚀 Project Value
-
-This project demonstrates:
-- End-to-end data engineering workflow  
-- Cloud-based data architecture (Azure)  
-- Real-world business analytics use cases  
-
-## 👨‍💻 Author
-
-Aboudoul Karim
-Azure Data Engineer  
+**Next Document →** `02-business-challenges.md`

@@ -1,206 +1,131 @@
-# 🚀 End-to-End Azure Data Pipeline (E-commerce Analytics)
+# 03 — Solution Strategy
 
-## 📌 Overview
-This project showcases the design and implementation of a **scalable end-to-end data pipeline on Microsoft Azure**.
-
-It covers the full lifecycle of data:
-- Ingestion  
-- Storage  
-- Transformation  
-- Analytics  
-
-The pipeline follows a **Medallion Architecture (Bronze → Silver → Gold)** to deliver clean, reliable, and business-ready datasets.
-
----
-
-## 📊 Dashboard Preview
-
-This dashboard provides a high-level overview of sales performance, including revenue trends, KPIs, and customer insights.
-
-[![Dashboard](./architecture/dashboard.png)](./architecture/dashboard.png)
+| Document Information | |
+|----------------------|-----------------------------|
+| **Project** | Azure Retail Analytics Platform |
+| **Case Study** | Nova Retail Group |
+| **Document** | Solution Strategy |
+| **Status** | Final |
+| **Version** | 1.0 |
+| **Author** | Aboudoul Karim OUATTARA |
+| **Last Updated** | June 2026 |
 
 ---
 
-## 🎯 Business Use Case
-The goal is to enable a company to:
-- 📊 Monitor sales performance  
-- 📦 Identify top-selling products  
-- 📈 Analyze revenue trends over time  
-- 👥 Understand customer behavior and segmentation  
+## Executive Overview
+
+As Nova Retail Group expanded its operations across multiple countries, the volume of transactional data increased rapidly. While this growth created valuable business opportunities, it also exposed significant limitations in the company's existing reporting process.
+
+This document outlines the key business and technical challenges that motivated the implementation of a modern Azure Data Platform.
 
 ---
 
-## 🏗️ Architecture
-```
-Source (Kaggle Dataset)
-↓
-Landing Zone (Raw Upload)
-↓
-Azure Data Factory (Ingestion Pipeline)
-↓
-Bronze Layer (Raw Data Storage)
-↓
-Azure Databricks (Data Processing)
-↓
-Silver Layer (Cleaned Data)
-↓
-Gold Layer (Business Aggregations)  
-↓  
-BI Layer (Power BI)
-```
----
+# Existing Challenges
 
-## ⚙️ Technologies Used
+The current reporting process relies on manually prepared datasets extracted from operational systems.
 
--  **Azure Data Factory** – Data ingestion & orchestration  
-- **Azure Data Lake Storage Gen2 (ADLS)** – Scalable storage  
-- **Azure Databricks** – Data processing (PySpark)  
-- **SQL / PySpark** – Data transformation & analytics  
+Although functional for small volumes of data, this approach no longer meets the organization's growing analytical needs.
+
+The following challenges were identified.
 
 ---
 
-## 📁 Repository Structure
-```
-project/
-│
-├── architecture/
-│ ├── adf_pipeline.png
-│ ├── bronze_layer.png
-| ├── silver_layer.png
-│ └── gold_layer.png
-│
-├── data/
-│ ├── bronze/ 
-│ ├── silver/ 
-│ └── gold/ 
-│
-├── notebooks/
-│ ├── 02_bronze_to_silver_data_cleaning
-│ └── 03_silver_to_gold_analytics
-│
-├── README.md
-```
+## Challenge 1 — Fragmented Data
 
-### ⚠️ Note:
-The `data/` folder contains **sample extracts only**.
-All full datasets are processed in **Azure Data Lake (Bronze/Silver layers)**.
+Sales transactions are stored as raw CSV files exported from operational systems.
+
+Without a centralized platform, different teams work with separate copies of the data, increasing the risk of inconsistencies and duplicated work.
+
+### Business Impact
+
+* Multiple versions of the same dataset.
+* Lack of a single source of truth.
+* Difficult collaboration across departments.
 
 ---
 
+## Challenge 2 — Poor Data Quality
 
-## 📂 Data Architecture
+Raw transactional data contains missing customer identifiers, duplicate records, inconsistent data types, and cancelled transactions.
 
-### 🟣 Landing Layer
-- Raw dataset ingestion   
-- Source: Kaggle (Online Retail Dataset)  
+Without standardized cleansing rules, analytical results become unreliable.
 
-### 🟤 Bronze Layer
-- Raw, unprocessed data  
-- Stored as-is for traceability  
+### Business Impact
 
-### ⚪ Silver Layer
-- Cleaned and enriched data  
-- Transformations include:
-  - Missing values handling  
-  - Data type corrections  
-  - Feature engineering:
-    - `line_total` (revenue per transaction line)  
-    - `is_return` (returns flag)  
-    - `year`, `month` (time analysis)  
-
-## 🥇 Gold Layer (Business Analytics)
-
-Optimized datasets for decision-making:
-
-### 📊 KPIs
-- Total Revenue  
-- Total Orders  
-- Total Customers  
-- Average Order Value (AOV)  
-
-### 📈 Trends
-- Monthly revenue  
-- Monthly orders  
-- Monthly customers  
-
-### 📦 Products
-- Top products by revenue  
-- Top products by quantity  
-
-### 👥 Customers
-- Top customers by spending  
-- RFM segmentation (Recency, Frequency, Monetary)  
+* Inaccurate KPIs.
+* Reduced confidence in reports.
+* Additional manual data preparation.
 
 ---
 
-## 🔄 Pipeline Workflow
+## Challenge 3 — Manual Reporting
 
-### 1. Data Ingestion
-- Data uploaded to **Landing zone**
-- Azure Data Factory pipelines move data to **Bronze layer**
+Business analysts manually clean and transform data before building reports.
 
-### Azure Data Factory Pipeline
-![Pipeline](./architecture/adf_pipeline.png)
+As transaction volumes increase, this process becomes increasingly time-consuming and difficult to maintain.
 
-### Bronze Layer Output
-![Bronze layer](./architecture/bronze_layer.png)
+### Business Impact
 
-
-### 2. Data Transformation (Databricks)
-- Data cleaning and validation  
-- Feature engineering  
-- Output stored in **Silver Layer (Parquet format)**  
-
-### 📸 Silver Layer Output
-![Silver layer](./architecture/silver_layer.png)
-
-
-### 3. Data Analytics (Gold)
-- KPI computation  
-- Trend analysis  
-- Product & customer insights  
-- RFM segmentation  
-
-### 📸 Silver Layer Output
-![Gold layer](./architecture/gold_layer.png)
+* Delayed reporting cycles.
+* Low productivity.
+* High risk of human error.
 
 ---
 
-## 📊 Key Insights
+## Challenge 4 — Limited Scalability
 
-- 💰 Total revenue exceeds **8.3M**, indicating strong performance  
-- 📈 Clear **seasonality trend** with peak in **Q4**  
-- 🛍️ Revenue driven by:
-  - High-value products  
-  - High-volume transactions  
+The existing reporting workflow was designed for relatively small datasets.
 
-- 👥 Customer segmentation reveals:
-  - Loyal high-value customers  
-  - Low-frequency buyers  
+As the company grows, manual processing cannot efficiently support increasing data volumes or additional business domains.
 
-- 🎯 RFM analysis helps identify:
-  - Retention opportunities  
-  - At-risk customers  
+### Business Impact
+
+* Longer processing times.
+* Reduced operational efficiency.
+* Difficulty supporting future business expansion.
 
 ---
 
-## 🧠 What I Learned
+## Challenge 5 — Inconsistent Business Metrics
 
-- Designing **scalable data lake architectures**  
-- Building **robust ETL pipelines on Azure**  
-- Transforming raw data into **business-ready insights**  
-- Applying **analytical techniques (KPIs, trends, segmentation)**  
+Different business teams calculate KPIs using different methodologies.
+
+For example, revenue, customer counts, or order metrics may vary depending on the report being used.
+
+### Business Impact
+
+* Conflicting dashboards.
+* Lack of trust in business metrics.
+* Poor decision-making.
 
 ---
 
-## 🚀 Project Value
+# Why These Challenges Matter
 
-This project demonstrates:
-- End-to-end data engineering workflow  
-- Cloud-based data architecture (Azure)  
-- Real-world business analytics use cases  
+Reliable analytics depends on three fundamental principles:
 
-## 👨‍💻 Author
+* Trusted data.
+* Consistent business logic.
+* Scalable data processing.
 
-Aboudoul Karim
-Azure Data Engineer  
+Without these capabilities, business users spend more time preparing data than analyzing it.
+
+The objective of this project is therefore not simply to automate ETL pipelines, but to establish a modern data platform capable of delivering trusted analytical datasets across the organization.
+
+---
+
+# Key Takeaways
+
+The existing reporting process presents several limitations:
+
+* Data is fragmented across multiple files.
+* Data quality issues reduce confidence in analytics.
+* Reporting depends heavily on manual effort.
+* The current workflow does not scale with business growth.
+* Business metrics lack consistency across departments.
+
+These challenges justify the implementation of a centralized Azure Data Platform based on the Medallion Architecture.
+
+---
+
+**Next Document →** `03-solution-strategy.md`
