@@ -373,16 +373,18 @@ Future iterations of this platform may include:
 
 ---
 
-# 👨‍💻 About the Author
+## 👨‍💻 About the Author
 
 **Aboudoul Karim OUATTARA**
 
 Cloud Data Engineer specializing in Microsoft Azure and Microsoft Fabric.
 
-I enjoy designing modern cloud-native data platforms that transform raw data into trusted business insights through scalable architectures, robust ETL pipelines, and analytics-ready data products.
+I design modern cloud-native data platforms that transform raw data into trusted business insights through scalable architectures, robust ETL pipelines, and analytics-ready data products.
 
-* 💼 LinkedIn: *https://www.linkedin.com/in/aboudoul-karim-ouattara-5baaba226/*
-* 📧 Email: *ouattaraaboudoulkarim@gmail.com*
+### 📫 Connect with Me
+
+- 💼 **LinkedIn:** https://www.linkedin.com/in/aboudoul-karim-ouattara-5baaba226/
+- 📧 **Email:** ouattaraaboudoulkarim@gmail.com
 
 ---
 
