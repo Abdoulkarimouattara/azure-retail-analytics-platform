@@ -122,6 +122,19 @@ The platform follows a modern **Medallion Architecture**, progressively transfor
 
 The solution is organized into four logical stages, each designed with a single responsibility.
 
+## 🧩 Orchestration Layer
+
+- Data ingestion workflow
+- Pipeline execution
+- Source-to-Bronze data movement
+- Foundation for automated batch processing
+
+📸 **Azure Data Factory Pipeline**
+
+![Azure Data Factory Pipeline](./architecture/adf_pipeline.png)
+
+---
+
 ## 🟤 Bronze Layer
 
 * Raw data ingestion
