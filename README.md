@@ -210,3 +210,183 @@ The platform enables business stakeholders to:
 
 > 📖 The complete implementation, engineering decisions, and production considerations are documented in the **Technical Case Study** available in the `case-study/` folder.
 
+---
+
+# 🛠️ Technology Stack
+
+The platform combines modern Microsoft Azure services with scalable Data Engineering technologies to build an end-to-end analytics solution.
+
+### ☁️ Cloud Platform
+
+* Microsoft Azure
+* Azure Data Factory
+* Azure Data Lake Storage Gen2
+* Azure Databricks
+
+### 💻 Data Processing
+
+* Python
+* PySpark
+* Spark SQL
+
+### 🏗️ Data Architecture
+
+* Medallion Architecture
+* Data Lake
+* ETL / ELT
+* Data Modeling
+
+### 📊 Analytics
+
+* Power BI
+* Business KPIs
+* Interactive Dashboards
+
+### 📦 Storage Format
+
+* Parquet
+
+---
+
+# 📂 Repository Structure
+
+```text
+azure-retail-analytics-platform/
+
+├── README.md
+├── LICENSE
+├── .gitignore
+│
+├── architecture/
+│   ├── solution_architecture.png
+│   ├── adf_pipeline.png
+│   ├── bronze_layer.png
+│   ├── silver_layer.png
+│   └── gold_layer.png
+│
+├── datasets/
+│   ├── bronze/
+│   ├── silver/
+│   ├── gold/
+│   └── README.md
+│
+├── notebooks/
+│   ├── 01_bronze_to_silver.ipynb
+│   └── 02_silver_to_gold.ipynb
+│
+├── case-study/
+│   ├── INDEX.md
+│   ├── 01-business-context.md
+│   ├── 02-business-challenges.md
+│   ├── 03-solution-strategy.md
+│   ├── 04-business-requirements.md
+│   ├── 05-architecture-decisions.md
+│   ├── 06-pipeline-walkthrough.md
+│   ├── 07-engineering-decisions.md
+│   ├── 08-production-readiness.md
+│   ├── 09-business-impact.md
+│   └── 10-consultants-retrospective.md
+│
+└── images/
+    ├── banner.png
+    └── dashboard.png
+```
+
+---
+
+# 📚 Technical Case Study
+
+This repository goes beyond implementation by documenting the engineering process behind the solution.
+
+| Document                      | Description                                |
+| ----------------------------- | ------------------------------------------ |
+| 📖 Business Context           | Business background and project objectives |
+| 🎯 Business Challenges        | Problems addressed by the solution         |
+| 💡 Solution Strategy          | Overall architecture and design philosophy |
+| 📋 Business Requirements      | Functional and non-functional requirements |
+| 🏗️ Architecture Decisions    | Why each Azure service was selected        |
+| 🔄 Pipeline Walkthrough       | End-to-end data lifecycle                  |
+| 🧠 Engineering Decisions      | Technical choices and trade-offs           |
+| 🏭 Production Readiness       | Enterprise deployment considerations       |
+| 📈 Business Impact            | Value delivered to business stakeholders   |
+| 📝 Consultant's Retrospective | Lessons learned and future improvements    |
+
+> Explore the complete documentation inside the **`case-study/`** directory.
+
+---
+
+# 🧠 Skills Demonstrated
+
+This project demonstrates practical experience in:
+
+### Cloud Data Engineering
+
+* Cloud Data Platform Design
+* Azure Data Engineering
+* ETL / ELT Development
+* Data Lake Architecture
+
+### Data Processing
+
+* PySpark Development
+* Data Cleansing
+* Feature Engineering
+* Data Transformation
+
+### Data Architecture
+
+* Medallion Architecture
+* Data Modeling
+* Analytics Layer Design
+* Business-Oriented Data Products
+
+### Analytics & BI
+
+* KPI Development
+* Power BI Reporting
+* Business Analytics
+* Customer Segmentation (RFM)
+
+### Software Engineering
+
+* Technical Documentation
+* Solution Design
+* Architecture Decision Making
+* Production-Oriented Thinking
+
+---
+
+# 🚀 Future Roadmap
+
+Future iterations of this platform may include:
+
+* Delta Lake implementation
+* Incremental data loading
+* CI/CD automation
+* Infrastructure as Code (Terraform / Bicep)
+* Automated testing
+* Azure Monitor integration
+* Data Quality Framework
+* Microsoft Purview
+* Event-driven ingestion
+* Real-time analytics
+
+---
+
+# 👨‍💻 About the Author
+
+**Aboudoul Karim OUATTARA**
+
+Cloud Data Engineer specializing in Microsoft Azure and Microsoft Fabric.
+
+I enjoy designing modern cloud-native data platforms that transform raw data into trusted business insights through scalable architectures, robust ETL pipelines, and analytics-ready data products.
+
+* 💼 LinkedIn: *(Add your profile link)*
+* 📧 Email: *(Add your email address)*
+
+---
+
+# 💡 Engineering Philosophy
+
+> *"Great data platforms are not built by connecting cloud services. They are built by understanding business problems, making thoughtful architectural decisions, and delivering trusted data products that create measurable value."*
+
