@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="./images/banner.png" alt="Azure Retail Analytics Platform Banner">
-</p>
-
 <h1 align="center">🚀 Azure Retail Analytics Platform</h1>
 
 <p align="center">
