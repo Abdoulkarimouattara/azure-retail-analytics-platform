@@ -64,8 +64,6 @@ Beyond the implementation itself, this repository documents the engineering deci
 
 # 🏗️ Solution Architecture
 
-> **📌 Replace the image below with your architecture diagram.**
-
 ![Solution Architecture](./architecture/solution_architecture.png)
 
 The solution separates data ingestion, storage, processing, and analytics into independent layers, following the Medallion Architecture to ensure scalability, maintainability, and data quality throughout the data lifecycle.
