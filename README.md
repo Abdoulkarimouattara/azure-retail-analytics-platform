@@ -1,206 +1,73 @@
-# 🚀 End-to-End Azure Data Pipeline (E-commerce Analytics)
+<p align="center">
+  <img src="./images/banner.png" alt="Azure Retail Analytics Platform Banner">
+</p>
 
-## 📌 Overview
-This project showcases the design and implementation of a **scalable end-to-end data pipeline on Microsoft Azure**.
+<h1 align="center">🚀 Azure Retail Analytics Platform</h1>
 
-It covers the full lifecycle of data:
-- Ingestion  
-- Storage  
-- Transformation  
-- Analytics  
+<p align="center">
+Designing a scalable cloud-native analytics platform with Microsoft Azure
+</p>
 
-The pipeline follows a **Medallion Architecture (Bronze → Silver → Gold)** to deliver clean, reliable, and business-ready datasets.
+<p align="center">
+A production-inspired end-to-end Data Engineering case study demonstrating how modern cloud architectures transform raw transactional data into trusted business insights.
+</p>
 
----
+<p align="center">
 
-## 📊 Dashboard Preview
+<a href="#-solution-architecture">Architecture</a> • <a href="#-pipeline-overview">Pipeline</a> • <a href="#-dashboard-preview">Dashboard</a> • <a href="#-technical-case-study">Case Study</a>
 
-This dashboard provides a high-level overview of sales performance, including revenue trends, KPIs, and customer insights.
-
-[![Dashboard](./architecture/dashboard.png)](./architecture/dashboard.png)
-
----
-
-## 🎯 Business Use Case
-The goal is to enable a company to:
-- 📊 Monitor sales performance  
-- 📦 Identify top-selling products  
-- 📈 Analyze revenue trends over time  
-- 👥 Understand customer behavior and segmentation  
+</p>
 
 ---
 
-## 🏗️ Architecture
-```
-Source (Kaggle Dataset)
-↓
-Landing Zone (Raw Upload)
-↓
-Azure Data Factory (Ingestion Pipeline)
-↓
-Bronze Layer (Raw Data Storage)
-↓
-Azure Databricks (Data Processing)
-↓
-Silver Layer (Cleaned Data)
-↓
-Gold Layer (Business Aggregations)  
-↓  
-BI Layer (Power BI)
-```
----
+# 📖 Executive Summary
 
-## ⚙️ Technologies Used
+Modern organizations generate massive amounts of operational data every day. Without a well-designed data platform, transforming this information into reliable business insights becomes increasingly difficult.
 
--  **Azure Data Factory** – Data ingestion & orchestration  
-- **Azure Data Lake Storage Gen2 (ADLS)** – Scalable storage  
-- **Azure Databricks** – Data processing (PySpark)  
-- **SQL / PySpark** – Data transformation & analytics  
+This project presents the design and implementation of a production-inspired Azure Data Engineering platform for a retail analytics scenario. The solution demonstrates how modern cloud services can be combined to build scalable ETL pipelines, improve data quality, and deliver business-ready datasets for analytics.
+
+The platform follows the **Medallion Architecture (Bronze → Silver → Gold)**, leveraging **Azure Data Factory**, **Azure Data Lake Storage Gen2**, **Azure Databricks (PySpark)**, and **Power BI** to create a complete end-to-end analytics solution.
+
+Beyond the implementation itself, this repository documents the engineering decisions, architectural rationale, and production considerations behind the solution, making it a complete technical case study.
 
 ---
 
-## 📁 Repository Structure
-```
-project/
-│
-├── architecture/
-│ ├── adf_pipeline.png
-│ ├── bronze_layer.png
-| ├── silver_layer.png
-│ └── gold_layer.png
-│
-├── data/
-│ ├── bronze/ 
-│ ├── silver/ 
-│ └── gold/ 
-│
-├── notebooks/
-│ ├── 02_bronze_to_silver_data_cleaning
-│ └── 03_silver_to_gold_analytics
-│
-├── README.md
-```
+# 📊 Project at a Glance
 
-### ⚠️ Note:
-The `data/` folder contains **sample extracts only**.
-All full datasets are processed in **Azure Data Lake (Bronze/Silver layers)**.
+| Category          | Details                      |
+| ----------------- | ---------------------------- |
+| Industry          | Retail & E-commerce          |
+| Scenario          | Sales Analytics Platform     |
+| Architecture      | Medallion Architecture       |
+| Cloud Platform    | Microsoft Azure              |
+| Storage           | Azure Data Lake Storage Gen2 |
+| Processing        | Azure Databricks (PySpark)   |
+| Orchestration     | Azure Data Factory           |
+| Visualization     | Power BI                     |
+| Storage Format    | Parquet                      |
+| Engineering Focus | Cloud Data Engineering       |
 
 ---
 
+# ⭐ Key Highlights
 
-## 📂 Data Architecture
-
-### 🟣 Landing Layer
-- Raw dataset ingestion   
-- Source: Kaggle (Online Retail Dataset)  
-
-### 🟤 Bronze Layer
-- Raw, unprocessed data  
-- Stored as-is for traceability  
-
-### ⚪ Silver Layer
-- Cleaned and enriched data  
-- Transformations include:
-  - Missing values handling  
-  - Data type corrections  
-  - Feature engineering:
-    - `line_total` (revenue per transaction line)  
-    - `is_return` (returns flag)  
-    - `year`, `month` (time analysis)  
-
-## 🥇 Gold Layer (Business Analytics)
-
-Optimized datasets for decision-making:
-
-### 📊 KPIs
-- Total Revenue  
-- Total Orders  
-- Total Customers  
-- Average Order Value (AOV)  
-
-### 📈 Trends
-- Monthly revenue  
-- Monthly orders  
-- Monthly customers  
-
-### 📦 Products
-- Top products by revenue  
-- Top products by quantity  
-
-### 👥 Customers
-- Top customers by spending  
-- RFM segmentation (Recency, Frequency, Monetary)  
+* End-to-End Azure Data Engineering Platform
+* Medallion Architecture (Bronze → Silver → Gold)
+* Automated data ingestion with Azure Data Factory
+* Distributed processing using Azure Databricks & PySpark
+* Business-ready Gold analytical layer
+* Interactive Power BI dashboard
+* Production-inspired cloud architecture
+* Complete technical case study
 
 ---
 
-## 🔄 Pipeline Workflow
+# 🏗️ Solution Architecture
 
-### 1. Data Ingestion
-- Data uploaded to **Landing zone**
-- Azure Data Factory pipelines move data to **Bronze layer**
+> **📌 Replace the image below with your architecture diagram.**
 
-### Azure Data Factory Pipeline
-![Pipeline](./architecture/adf_pipeline.png)
+![Solution Architecture](./architecture/solution_architecture.png)
 
-### Bronze Layer Output
-![Bronze layer](./architecture/bronze_layer.png)
-
-
-### 2. Data Transformation (Databricks)
-- Data cleaning and validation  
-- Feature engineering  
-- Output stored in **Silver Layer (Parquet format)**  
-
-### 📸 Silver Layer Output
-![Silver layer](./architecture/silver_layer.png)
-
-
-### 3. Data Analytics (Gold)
-- KPI computation  
-- Trend analysis  
-- Product & customer insights  
-- RFM segmentation  
-
-### 📸 Silver Layer Output
-![Gold layer](./architecture/gold_layer.png)
+The solution separates data ingestion, storage, processing, and analytics into independent layers, following the Medallion Architecture to ensure scalability, maintainability, and data quality throughout the data lifecycle.
 
 ---
-
-## 📊 Key Insights
-
-- 💰 Total revenue exceeds **8.3M**, indicating strong performance  
-- 📈 Clear **seasonality trend** with peak in **Q4**  
-- 🛍️ Revenue driven by:
-  - High-value products  
-  - High-volume transactions  
-
-- 👥 Customer segmentation reveals:
-  - Loyal high-value customers  
-  - Low-frequency buyers  
-
-- 🎯 RFM analysis helps identify:
-  - Retention opportunities  
-  - At-risk customers  
-
----
-
-## 🧠 What I Learned
-
-- Designing **scalable data lake architectures**  
-- Building **robust ETL pipelines on Azure**  
-- Transforming raw data into **business-ready insights**  
-- Applying **analytical techniques (KPIs, trends, segmentation)**  
-
----
-
-## 🚀 Project Value
-
-This project demonstrates:
-- End-to-end data engineering workflow  
-- Cloud-based data architecture (Azure)  
-- Real-world business analytics use cases  
-
-## 👨‍💻 Author
-
-Aboudoul Karim
-Azure Data Engineer  
