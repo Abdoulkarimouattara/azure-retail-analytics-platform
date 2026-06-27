@@ -381,8 +381,8 @@ Cloud Data Engineer specializing in Microsoft Azure and Microsoft Fabric.
 
 I enjoy designing modern cloud-native data platforms that transform raw data into trusted business insights through scalable architectures, robust ETL pipelines, and analytics-ready data products.
 
-* 💼 LinkedIn: *(Add your profile link)*
-* 📧 Email: *(Add your email address)*
+* 💼 LinkedIn: *https://www.linkedin.com/in/aboudoul-karim-ouattara-5baaba226/*
+* 📧 Email: *ouattaraaboudoulkarim@gmail.com*
 
 ---
 
